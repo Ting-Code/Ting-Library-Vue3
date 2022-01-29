@@ -1,7 +1,16 @@
+<template>
+  <hello-world></hello-world>
+  <el-button type="error" @click="handleClick">按钮</el-button>
+</template>
+
 <script setup lang="ts">
 import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
 import {ref} from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+export default {
+  components: {HelloWorld}
+}
 const count = ref(0)
 const baseUrl = import.meta.env.VITE_BASE_API
 const handleClick: Function = () => {
@@ -14,16 +23,6 @@ const handleto = () => {
   console.log('执行')
 }
 </script>
-
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <el-button type="error" @click="handleClick">按钮</el-button>
-  <button @click="()=> {
-    count++
-    handleto()
-  }">啊啊{{count}}</button>
-</template>
 
 <style>
 #app {
