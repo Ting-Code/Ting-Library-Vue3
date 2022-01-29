@@ -3,9 +3,9 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
 import {ref} from "vue";
 const count = ref(0)
+const baseUrl = import.meta.env.VITE_BASE_API
 const handleClick: Function = () => {
-  console.log('执行')
-  axios.get('/api/get').then((res) => {
+  axios.get(baseUrl as string).then((res) => {
     console.log(res);
   })
 }
