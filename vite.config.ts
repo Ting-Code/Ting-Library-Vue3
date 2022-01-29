@@ -9,12 +9,16 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // mockjs
 import { viteMockServe } from 'vite-plugin-mock'
 
+// gzip压缩
+import viteCompression from 'vite-plugin-compression';
+
 
 export default defineConfig(({ command }) => {
   return {
     base: './',
     plugins: [
       vue(),
+      viteCompression(),//gzip压缩
       AutoImport({resolvers: [ElementPlusResolver()],}),
       Components({resolvers: [ElementPlusResolver()],}),
       viteMockServe({
