@@ -5,13 +5,12 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
 // mockjs
 import { viteMockServe } from 'vite-plugin-mock'
-
 // gzip压缩
-import viteCompression from 'vite-plugin-compression';
-
+import viteCompression from 'vite-plugin-compression'
+// 自动ESLint检测热更新
+import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig(({ command }) => {
   return {
@@ -30,6 +29,10 @@ export default defineConfig(({ command }) => {
           setupProdMockServer();
         `,
       }),
+      // 设置eslint
+    eslintPlugin({
+      include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'], // 检查的文件
+    })
     ],
     resolve: {
       // 配置路径别名
