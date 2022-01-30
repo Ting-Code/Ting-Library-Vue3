@@ -4,18 +4,16 @@
 </template>
 
 <script setup lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
 import {ref} from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
-export default {
-  components: {HelloWorld}
-}
+
 const count = ref(0)
 const baseUrl = import.meta.env.VITE_BASE_API
-const handleClick: Function = () => {
+const handleClick = () => {
   axios.get(baseUrl as string).then((res) => {
     console.log(res);
+
   })
 }
 
