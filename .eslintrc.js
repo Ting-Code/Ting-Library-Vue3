@@ -38,6 +38,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': [
             'error',
             { varsIgnorePattern: '.*', args: 'none' }
-          ],
+        ],
+        'vue/multi-word-component-names': 'off'
     }
 }
