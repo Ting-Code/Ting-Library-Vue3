@@ -1,6 +1,6 @@
 module.exports = {
   // printWidth: 80,
-  tabWidth: 2,
+  // tabWidth: 1,
   // useTabs: false,
   semi: true, // 未尾逗号, default:  true
   singleQuote: true, // 单引号 default: false

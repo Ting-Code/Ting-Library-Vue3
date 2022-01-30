@@ -4,7 +4,7 @@ module.exports = {
         commonjs: true,
         es6: true,
         node: true,
-        'vue/setup-compiler-macros': true
+        // 'vue/setup-compiler-macros': true
         // "es2021": true
     },
     "extends": [
@@ -13,8 +13,9 @@ module.exports = {
         "plugin:vue/vue3-recommended",// vue3
         "prettier"
     ],
+    // "parser": "vue-eslint-parser",
     "parserOptions": {
-        // "ecmaVersion": "latest",
+        "ecmaVersion": "es6",
         "parser": "@typescript-eslint/parser",
         "sourceType": "module",
         ecmaFeatures: {
@@ -27,27 +28,16 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        'import/no-unresolved': [0],
-        'vue/multi-word-component-names': 'off',
-        'vue/no-deprecated-router-link-tag-prop': 'off',
-        'import/extensions': 'off',
-        'import/no-absolute-path': 'off',
-        'no-async-promise-executor': 'off',
-        'import/no-extraneous-dependencies': 'off',
-        'vue/no-multiple-template-root': 'off',
-        'vue/html-self-closing': 'off',
         'no-console': 'off',
         'no-plusplus': 'off',
-        'no-useless-escape': 'off',
-        'no-bitwise': 'off',
-        '@typescript-eslint/no-explicit-any': ['off'],
-        '@typescript-eslint/explicit-module-boundary-types': ['off'],
-        '@typescript-eslint/ban-ts-comment': ['off'],
-        'vue/no-setup-props-destructure': ['off'],
-        '@typescript-eslint/no-empty-function': ['off'],
-        'vue/script-setup-uses-vars': ['off'],
-        //can config  to 2 if need more then required
-        '@typescript-eslint/no-unused-vars': [0],
-        'no-param-reassign': ['off']
+        // ↓是否校验空函数体
+        '@typescript-eslint/no-empty-function': 'off',
+        // ↓是否校验函数缺失返回类型
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        // ↓校验变量是否被使用
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            { varsIgnorePattern: '.*', args: 'none' }
+          ],
     }
 }
