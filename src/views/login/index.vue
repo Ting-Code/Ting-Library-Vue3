@@ -1,3 +1,3 @@
 <template>
-  <div>啊啊啊啊</div>
+  <div>登录页</div>
 </template>
