@@ -10,16 +10,18 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"], // 客户端类型
+    "types": ["vite/client", "node", "vite-plugin-svg-icons/client"], // 客户端类型
     "skipLibCheck": true, // 只检测你写的代码 忽略其他
     "isolatedModules": true, //vite 的TS支持不完善，增加一些报错提示
-
+    "typeRoots": [ "../node_modules/@types" ],
     "baseUrl": "./",
     "paths": {
 	  // 根据别名配置相关路径
       "@/*": ["./src/*"],
       "@styles/*": ["./src/styles/*"]
+  
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+
 }
