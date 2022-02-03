@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import path from 'path';
 
 // 按需引入 element-plus
 import AutoImport from 'unplugin-auto-import/vite'
@@ -11,6 +12,10 @@ import { viteMockServe } from 'vite-plugin-mock'
 import viteCompression from 'vite-plugin-compression'
 // 自动ESLint检测热更新
 import eslintPlugin from 'vite-plugin-eslint'
+
+// svg 加载
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 
 export default defineConfig(({ command }) => {
   return {
@@ -29,10 +34,14 @@ export default defineConfig(({ command }) => {
           setupProdMockServer();
         `,
       }),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'src/icons/svg')],
+        symbolId: 'icon-[dir]-[name]',
+      }),
       // 设置eslint
-    eslintPlugin({
-      include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'], // 检查的文件
-    })
+      eslintPlugin({
+        include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'], // 检查的文件
+      })
     ],
     resolve: {
       // 配置路径别名
