@@ -2,6 +2,7 @@ import { getItem, removeItem, setItem } from './storage'
 import defaultSettings from '@/config/settings.json'
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { isValidKey } from './validate'
 
 // 是否正在刷新的标记
 let isRefreshing = false
@@ -129,17 +130,40 @@ function resetLogin(title = '身份验证失败，请重新登录！') {
 }
 /**
  * []请求
- * @param params  参数
- * @param operation     接口
+ * @param url  接口
+ * @param data  参数
  */
-function customRequest(url: string, method: any, data: any) {
-  // service.defaults.headers['Content-Type']=contentType
-  const datatype = method.toLocaleLowerCase() === 'get' ? 'params' : 'data'
-  return request({
-    url: url,
-    method: method,
-    [datatype]: data
-  })
+const rawGet = request.get
+request.get = (url, data: object, headers = {}) => {
+  if (data && JSON.stringify(data) !== '{}') {
+    const params = new URLSearchParams()
+    for (const key in data) {
+      if (isValidKey(key, data)) {
+        params.append(key, data[key])
+      }
+    }
+    return rawGet(url, { params, headers })
+  } else {
+    return rawGet(url)
+  }
 }
 
-export { request, customRequest }
+const rawPost = request.post
+request.post = (url, data) => {
+  if (data) return rawPost(url, data)
+  else return rawPost(url)
+}
+
+const rawDelete = request.delete
+request.delete = (url, data) => {
+  if (data) return rawDelete(url, data)
+  else return rawDelete(url)
+}
+
+const rawPut = request.put
+request.put = (url, data) => {
+  if (data) return rawPut(url, data)
+  else return rawPut(url)
+}
+
+export { request }
