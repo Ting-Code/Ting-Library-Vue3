@@ -12,15 +12,15 @@
 
 <script setup lang="ts">
 import { isExternal as exrernal } from '@/utils/validate'
-import { defineProps, computed } from 'vue'
+import { defineProps, computed, PropType } from 'vue'
 
 const props = defineProps({
   name: {
-    type: String,
+    type: String as PropType<string>,
     required: true
   },
   className: {
-    type: String,
+    type: String as PropType<string>,
     default: ''
   }
 })
