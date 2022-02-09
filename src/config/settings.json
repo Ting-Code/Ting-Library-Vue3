@@ -7,5 +7,6 @@
   "footer": true,
   "themeColor": "#165DFF",
   "menuWidth": 220,
-  "globalSettings": false
+  "globalSettings": false,
+  "token": "token"
 }
