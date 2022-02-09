@@ -471,18 +471,18 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.2.26.tgz"
   integrity sha512-vPV6Cq+NIWbH5pZu+V+2QHE9y1qfuTq49uNWw4f7FDEeZaDU2H2cx5jcUZOAKW7qTrUS4k6qZPbMy1x4N96nbA==
 
-"@vueuse/core@^7.5.4":
-  version "7.5.5"
-  resolved "https://registry.npmjs.org/@vueuse/core/-/core-7.5.5.tgz"
-  integrity sha512-RBDqmIoGfak4h3xdXa/Av+ibkb8NY044wEy6+PG2FAWNaID8/FkqmSFjbxogrbmpSX1yZ1PBHrM8DUp/FrIpbg==
+"@vueuse/core@^7.5.5":
+  version "7.6.0"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-7.6.0.tgz#821dfbe137a00a4a25da5848c7e6ab1e04953198"
+  integrity sha512-gTkTYbOO19AnhmbH39mMlfoOOcxSSOtXeI69Ixm7gE/C0eT8Vnpb7VE9KGrobCr4sUqE5fmwAdPIYkdB/NJIzQ==
   dependencies:
-    "@vueuse/shared" "7.5.5"
+    "@vueuse/shared" "7.6.0"
     vue-demi "*"
 
-"@vueuse/shared@7.5.5":
-  version "7.5.5"
-  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-7.5.5.tgz"
-  integrity sha512-mzzTsotHQRPnPAChy8iCv6ek/90CKYhAFyMRgNsMxpT0afZJkbMO/X0OaOu/1NuGbgb8UVjlsWKmCUgKTOF5hA==
+"@vueuse/shared@7.6.0":
+  version "7.6.0"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-7.6.0.tgz#37da9008f2263a0478743d05f485a00a6d2b9024"
+  integrity sha512-+Q0XVQHX/Low2dQMZfrkZcOOY6oB5+JNOEsM2HJFCjAvhotujpGnQiwyfGKb35wxynlmR97oCCZmGuVMgv/9dg==
   dependencies:
     vue-demi "*"
 
@@ -1077,15 +1077,15 @@ ee-first@1.1.1:
   resolved "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-element-plus@^1.3.0-beta.9:
-  version "1.3.0-beta.9"
-  resolved "https://registry.npmjs.org/element-plus/-/element-plus-1.3.0-beta.9.tgz"
-  integrity sha512-h+I6VVtJNwjVkNhfhXp2oCYjgBN7kWQ2Y6nWzwc0wiphAlQDhGuBXAGj9eYpf1uOrMgIpFFwbRhvK7C6sOJsWg==
+element-plus@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/element-plus/-/element-plus-2.0.1.tgz#0ac58a45454bc17558f66b477e0233bddc18b7be"
+  integrity sha512-Cdx3JhbMNGwVsU12DUewIltJ1hUYVSgx2iBB8AuNzzOxAqcxSA9e7p2lfNp8oCBQeh4ThRSaOkdLnJyO4mS3qQ==
   dependencies:
     "@ctrl/tinycolor" "^3.4.0"
     "@element-plus/icons-vue" "^0.2.6"
     "@popperjs/core" "^2.11.2"
-    "@vueuse/core" "^7.5.4"
+    "@vueuse/core" "^7.5.5"
     async-validator "^4.0.7"
     dayjs "^1.10.7"
     lodash "^4.17.21"
