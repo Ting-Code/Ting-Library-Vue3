@@ -39,6 +39,9 @@ module.exports = {
             'error',
             { varsIgnorePattern: '.*', args: 'none' }
         ],
-        'vue/multi-word-component-names': 'off'
+        // vue 组件命名为多字节
+        'vue/multi-word-component-names': 'off',
+        // ↓不能使用TS忽略注释
+        '@typescript-eslint/ban-ts-comment': 'off',
     }
 }
