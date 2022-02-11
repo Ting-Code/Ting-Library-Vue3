@@ -3,14 +3,14 @@ import {
   createWebHistory,
   createWebHashHistory
 } from 'vue-router'
-import layout from '@/layout'
-import UserManageRouter from './modules/UserManage'
+import admin from '@/views/admin/index.vue'
+import HandbookRouter from './modules/HandbookRouter'
 import store from '@/store'
 
 /**
  * 私有路由表
  */
-export const privateRoutes = [UserManageRouter]
+export const privateRoutes = [HandbookRouter]
 
 /**
  * 公开路由表
@@ -22,7 +22,12 @@ export const publicRoutes = [
   },
   {
     path: '/',
-    component: layout,
+    redirect: '/index',
+    component: () => import('@/views/index/index.vue')
+  },
+  {
+    path: '/admin',
+    component: admin,
     redirect: '/admin',
     children: [
       {
