@@ -1,7 +1,7 @@
 /**
  * 存储数据
  */
- export const setItem = (key: string, value: string | object) => {
+export const setItem = (key: string, value: string | object) => {
   // 将数组、对象类型的数据转化为 JSON 字符串进行存储
   if (typeof value === 'object') {
     value = JSON.stringify(value)
@@ -34,3 +34,8 @@ export const removeItem = (key: string) => {
 export const removeAllItem = (key: string) => {
   window.localStorage.clear()
 }
+
+/**
+ * 设定Token
+ */
+export
