@@ -1,10 +1,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import { setupRouter } from './router'
+import { setupStore } from './store'
 import installIcon from '@/components/index'
 import 'virtual:svg-icons-register'
 
-const app = createApp(App)
-installIcon(app)
-app.use(router).use(store).mount('#app')
+async function bootstrap() {
+  const app = createApp(App)
+  installIcon(app)
+  setupStore(app)
+  setupRouter(app)
+  app.mount('#app')
+}
+
+bootstrap()

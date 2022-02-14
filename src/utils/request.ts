@@ -6,7 +6,7 @@ import { isValidKey } from './validate'
 // 是否正在刷新的标记
 let isRefreshing = false
 // 请求栈
-let retryRequests: ((token: any) => void)[] = []
+let retryRequests: ((token: string) => void)[] = []
 
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -68,7 +68,7 @@ request.interceptors.response.use(
             setToken(res.data)
             config.headers['Authorization'] = getToken()
             // 已经刷新了token，将所有队列中的请求进行重试
-            retryRequests.forEach(cb => cb(getToken()))
+            retryRequests.forEach(cb => cb(getToken() || ''))
             // 重试完清空这个队列
             retryRequests = []
             // 这边不需要baseURL是因为会重新请求url，url中已经包含baseURL的部分了
@@ -86,7 +86,7 @@ request.interceptors.response.use(
         return new Promise(resolve => {
           // 将resolve放进队列，用一个函数形式来保存，等token刷新后直接执行
           // @ts-ignore
-          retryRequests.push((token: any) => {
+          retryRequests.push((token: string) => {
             config.baseURL = ''
             config.headers['Authorization'] = token
             resolve(request(config))

@@ -8,6 +8,7 @@ import 'nprogress/nprogress.css'
 import admin from '@/views/admin/index.vue'
 import HandbookRouter from './modules/HandbookRouter'
 import store from '@/store'
+import { App } from 'vue'
 
 /**
  * 私有路由表
@@ -135,4 +136,7 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-export default router
+// config router
+export function setupRouter(app: App<Element>) {
+  app.use(router)
+}

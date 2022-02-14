@@ -1,7 +1,10 @@
 import { createPinia } from 'pinia'
-import useAppStore from './modules/app'
+import { App } from 'vue'
+import useAppStore from './modules/app/app'
 import useUserStore from './modules/user'
-const pinia = createPinia()
-
 export { useAppStore, useUserStore }
-export default pinia
+
+export const store = createPinia()
+export function setupStore(app: App<Element>) {
+  app.use(store)
+}

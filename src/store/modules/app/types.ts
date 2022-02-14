@@ -8,6 +8,5 @@ export interface AppState {
   themeColor: string
   menuWidth: number
   globalSettings: boolean
-  token: string
   [key: string]: unknown
 }
