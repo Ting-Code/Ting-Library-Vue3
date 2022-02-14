@@ -35,7 +35,23 @@ export const removeAllItem = (key: string) => {
   window.localStorage.clear()
 }
 
+import { TOKEN } from '@/config/constant'
+
 /**
- * 设定Token
+ * 是否登录
  */
-export
+export const isLogin = () => {
+  return !!localStorage.getItem(TOKEN)
+}
+
+export const getToken = () => {
+  return localStorage.getItem(TOKEN)
+}
+
+export const setToken = (token: string) => {
+  localStorage.setItem(TOKEN, token)
+}
+
+export const clearToken = () => {
+  localStorage.removeItem(TOKEN)
+}

@@ -1,5 +1,4 @@
-import { getItem, removeItem, setItem } from './storage'
-import defaultSettings from '@/config/settings.json'
+import { clearToken, getToken, setToken } from './storage'
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { isValidKey } from './validate'
@@ -18,7 +17,7 @@ const request = axios.create({
 // http request 拦截器 Request
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    const token = getItem(defaultSettings.token)
+    const token = getToken()
     if (token) {
       ;(config.headers as AxiosRequestHeaders)['Authorization'] = token
     }
@@ -66,10 +65,10 @@ request.interceptors.response.use(
         return getRefreshTokenFunc()
           .then(res => {
             // 重新设置token
-            setItem(defaultSettings.token, res.data)
-            config.headers['Authorization'] = getItem(defaultSettings.token)
+            setToken(res.data)
+            config.headers['Authorization'] = getToken()
             // 已经刷新了token，将所有队列中的请求进行重试
-            retryRequests.forEach(cb => cb(getItem(defaultSettings.token)))
+            retryRequests.forEach(cb => cb(getToken()))
             // 重试完清空这个队列
             retryRequests = []
             // 这边不需要baseURL是因为会重新请求url，url中已经包含baseURL的部分了
@@ -109,7 +108,7 @@ request.interceptors.response.use(
 // 刷新token的请求方法
 function getRefreshTokenFunc() {
   const params = {
-    refresh_token: getItem(defaultSettings.token) || ''
+    refresh_token: getToken() || ''
   }
   return axios.post(
     process.env.VUE_APP_BASE_API + 'auth-center/auth/refresh_token',
@@ -123,7 +122,7 @@ function resetLogin(title = '身份验证失败，请重新登录！') {
       cancelButtonText: '取消',
       type: 'warning'
     }).then(() => {
-      removeItem(defaultSettings.token)
+      clearToken()
       location.reload() // To prevent bugs from vue-router
     })
   }

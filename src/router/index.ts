@@ -4,6 +4,7 @@ import {
   createWebHashHistory
 } from 'vue-router'
 import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css'
 import admin from '@/views/admin/index.vue'
 import HandbookRouter from './modules/HandbookRouter'
 import store from '@/store'
@@ -86,6 +87,7 @@ router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   async function crossroads() {
     const Permission = usePermission()
+    // 如果 权限含有就通过
     if (Permission.accessRouter(to)) await next()
     else {
       const destination = Permission.findFirstPermissionRoute(
