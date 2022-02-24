@@ -43,5 +43,7 @@ module.exports = {
         'vue/multi-word-component-names': 'off',
         // ↓不能使用TS忽略注释
         '@typescript-eslint/ban-ts-comment': 'off',
+        // ↓不能any TS
+        '@typescript-eslint/no-explicit-any': 'off',
     }
 }

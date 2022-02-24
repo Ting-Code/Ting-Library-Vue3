@@ -1,23 +1,25 @@
 import {
   createRouter,
   createWebHistory,
-  createWebHashHistory
+  createWebHashHistory,
+  RouteRecordRaw,
+  LocationQueryRaw
 } from 'vue-router'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
 import admin from '@/views/admin/index.vue'
-import HandbookRouter from './modules/HandbookRouter'
-import store from '@/store'
 import { App } from 'vue'
 
-/**
- * 私有路由表
- */
-export const privateRoutes = [HandbookRouter]
+const modules = import.meta.globEager('./modules/**/*.ts')
+const routeModuleList: RouteRecordRaw[] = []
+// 私有路由(需要权限才能放行)
+Object.keys(modules).forEach(key => {
+  const mod = modules[key].default || {}
+  const modList = Array.isArray(mod) ? [...mod] : [mod]
+  routeModuleList.push(...modList)
+})
 
-/**
- * 公开路由表
- */
+//公开路由表(这里还可以抽离这个文件)
 export const publicRoutes = [
   {
     path: '/login',
@@ -56,87 +58,43 @@ export const publicRoutes = [
   }
 ]
 
-/**
- * 初始化路由表
- */
-export function resetRouter() {
-  if (
-    store.getters.userInfo &&
-    store.getters.userInfo.permission &&
-    store.getters.userInfo.permission.menus
-  ) {
-    const menus = store.getters.userInfo.permission.menus
-    menus.forEach(menu => {
-      router.removeRoute(menu)
-    })
-  }
-}
+// 遍历路由数获取路由List
+const WHITE_NAME_LIST: string[] = []
+const getRouteNames = (array: any[]) =>
+  array.forEach(item => {
+    WHITE_NAME_LIST.push(item.name)
+    getRouteNames(item.children || [])
+  })
+getRouteNames(publicRoutes)
 
+// 创建路由
 const router = createRouter({
   history:
     process.env.NODE_ENV === 'production'
       ? createWebHistory()
       : createWebHashHistory(),
-  routes: publicRoutes,
+  routes: publicRoutes as unknown as RouteRecordRaw[],
   scrollBehavior() {
     return { top: 0 }
   }
 })
 
+// 重置动态路由
+export function resetRouter() {
+  router.getRoutes().forEach(route => {
+    const { name } = route
+    if (name && !WHITE_NAME_LIST.includes(name as string)) {
+      router.hasRoute(name) && router.removeRoute(name)
+    }
+  })
+}
+// 加载网页进度条(可以去掉)
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  const userStore = useUserStore()
-  async function crossroads() {
-    const Permission = usePermission()
-    // 如果 权限含有就通过
-    if (Permission.accessRouter(to)) await next()
-    else {
-      const destination = Permission.findFirstPermissionRoute(
-        appRoutes,
-        userStore.role
-      ) || {
-        name: 'notFound'
-      }
-      await next(destination)
-    }
-    NProgress.done()
-  }
-  if (isLogin()) {
-    if (userStore.role) {
-      crossroads()
-    } else {
-      try {
-        await userStore.info()
-        crossroads()
-      } catch (error) {
-        next({
-          name: 'login',
-          query: {
-            redirect: to.name,
-            ...to.query
-          } as LocationQueryRaw
-        })
-        NProgress.done()
-      }
-    }
-  } else {
-    if (to.name === 'login') {
-      next()
-      NProgress.done()
-      return
-    }
-    next({
-      name: 'login',
-      query: {
-        redirect: to.name,
-        ...to.query
-      } as LocationQueryRaw
-    })
-    NProgress.done()
-  }
+  next()
+  NProgress.done()
 })
 
-// config router
 export function setupRouter(app: App<Element>) {
   app.use(router)
 }
