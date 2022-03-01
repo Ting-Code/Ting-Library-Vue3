@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { isExternal as exrernal } from '@/utils/validate'
+import { isExternal as exrernal } from '@/utils/validator/validate'
 import { defineProps, computed, PropType } from 'vue'
 
 const props = defineProps({

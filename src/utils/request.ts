@@ -1,7 +1,7 @@
 import { clearToken, getToken, setToken } from './storage'
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { isValidKey } from './validate'
+import { isValidKey } from './validator/validate'
 
 // 是否正在刷新的标记
 let isRefreshing = false
