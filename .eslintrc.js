@@ -45,5 +45,7 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 'off',
         // ↓不能any TS
         '@typescript-eslint/no-explicit-any': 'off',
+        // ↓是否禁止使用特定类型
+        '@typescript-eslint/ban-types': 'off',
     }
 }
