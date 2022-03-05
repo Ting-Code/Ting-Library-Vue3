@@ -16,12 +16,27 @@
     "typeRoots": [ "../node_modules/@types" ],
     "baseUrl": "./",
     "paths": {
-	  // 根据别名配置相关路径
-      "@/*": ["./src/*"],
-      "@styles/*": ["./src/styles/*"]
-  
+	    // 根据别名配置相关路径
+      "@/*": ["src/*"],
+      "@ds/*": ["src/design/*"],
+      "/#/*": ["types/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.d.ts", 
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "build/**/*.ts",
+    "build/**/*.d.ts",
+    "mock/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js"
+  ]
 }
