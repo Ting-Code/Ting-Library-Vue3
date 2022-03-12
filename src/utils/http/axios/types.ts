@@ -36,6 +36,8 @@ export interface RequestOptions {
   isTransformResponse?: boolean
   // 是否返回原生响应头
   isReturnNativeResponse?: boolean
+  // 请求拼接路径
+  urlPrefix?: string
 }
 
 export interface Result<T = any> {
@@ -43,4 +45,17 @@ export interface Result<T = any> {
   type?: 'success' | 'error' | 'warning'
   message: string
   result?: T
+}
+
+// multipart/form-data: 上传文件
+export interface UploadFileParams {
+  // Other parameters
+  data?: Recordable
+  // File parameter interface field name
+  name?: string
+  // file name
+  file: File | Blob
+  // file name
+  filename?: string
+  [key: string]: any
 }

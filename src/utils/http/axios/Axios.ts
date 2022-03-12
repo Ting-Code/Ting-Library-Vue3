@@ -3,7 +3,8 @@ import axios from 'axios'
 import { AxiosCanceler } from './axiosCancel'
 import { isFunction } from '@/utils/validator/is'
 import { cloneDeep } from 'lodash-es'
-import type { RequestOptions, CreateAxiosOptions, Result } from './types'
+import type { RequestOptions, CreateAxiosOptions, Result, UploadFileParams } from './types'
+import qs from 'qs'
 // import { ContentTypeEnum } from '/@/enums/httpEnum';
 
 export * from './axiosTransform'
@@ -75,27 +76,19 @@ export class VAxios {
     const axiosCanceler = new AxiosCanceler()
 
     // 请求拦截器配置处理
-    this.axiosInstance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
-        const {
-          headers: { ignoreCancelToken } = { ignoreCancelToken: false }
-        } = config
-        !ignoreCancelToken && axiosCanceler.addPending(config)
-        if (requestInterceptors && isFunction(requestInterceptors)) {
-          config = requestInterceptors(config)
-        }
-        return config
-      },
-      undefined
-    )
+    this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+      const { headers: { ignoreCancelToken } = { ignoreCancelToken: false } } = config
+      !ignoreCancelToken && axiosCanceler.addPending(config)
+      if (requestInterceptors && isFunction(requestInterceptors)) {
+        config = requestInterceptors(config)
+      }
+      return config
+    }, undefined)
 
     // 请求拦截器错误捕获
     requestInterceptorsCatch &&
       isFunction(requestInterceptorsCatch) &&
-      this.axiosInstance.interceptors.request.use(
-        undefined,
-        requestInterceptorsCatch
-      )
+      this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch)
 
     // 响应结果拦截器处理
     this.axiosInstance.interceptors.response.use((res: AxiosResponse<any>) => {
@@ -109,39 +102,87 @@ export class VAxios {
     // 响应结果拦截器错误捕获
     responseInterceptorsCatch &&
       isFunction(responseInterceptorsCatch) &&
-      this.axiosInstance.interceptors.response.use(
-        undefined,
-        responseInterceptorsCatch
-      )
+      this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch)
   }
 
-  // /**
-  //  * @description:  文件上传
-  //  */
-  // uploadFiles(config: AxiosRequestConfig, params: File[]) {
-  //   const formData = new FormData();
+  /**
+   * @description:  上传文件
+   */
+  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+    const formData = new window.FormData()
+    const customFilename = params.name || 'file'
 
-  //   Object.keys(params).forEach((key) => {
-  //     formData.append(key, params[key as any]);
-  //   });
+    if (params.filename) {
+      formData.append(customFilename, params.file, params.filename)
+    } else {
+      formData.append(customFilename, params.file)
+    }
 
-  //   return this.request({
-  //     ...config,
-  //     method: 'POST',
-  //     data: formData,
-  //     headers: {
-  //       'Content-type': ContentTypeEnum.FORM_DATA,
-  //     },
-  //   });
-  // }
+    if (params.data) {
+      Object.keys(params.data).forEach(key => {
+        const value = params.data![key]
+        if (Array.isArray(value)) {
+          value.forEach(item => {
+            formData.append(`${key}[]`, item)
+          })
+          return
+        }
+
+        formData.append(key, params.data![key])
+      })
+    }
+
+    return this.axiosInstance.request<T>({
+      ...config,
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-type': 'multipart/form-data;charset=UTF-8',
+        // @ts-ignore
+        ignoreCancelToken: true
+      }
+    })
+  }
+
+  // support 表单数据
+  supportFormData(config: AxiosRequestConfig) {
+    const headers = config.headers || this.options.headers
+    const contentType = headers?.['Content-Type'] || headers?.['content-type']
+
+    if (
+      contentType !== 'application/x-www-form-urlencoded;charset=UTF-8' ||
+      !Reflect.has(config, 'data') ||
+      config.method?.toUpperCase() === 'GET'
+    ) {
+      return config
+    }
+
+    return {
+      ...config,
+      data: qs.stringify(config.data, { arrayFormat: 'brackets' })
+    }
+  }
+
+  get<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    return this.request({ ...config, method: 'GET' }, options)
+  }
+
+  post<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    return this.request({ ...config, method: 'POST' }, options)
+  }
+
+  put<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    return this.request({ ...config, method: 'PUT' }, options)
+  }
+
+  delete<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    return this.request({ ...config, method: 'DELETE' }, options)
+  }
 
   /**
    * @description:   请求方法
    */
-  request<T = any>(
-    config: AxiosRequestConfig,
-    options?: RequestOptions
-  ): Promise<T> {
+  request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
     let conf: AxiosRequestConfig = cloneDeep(config)
     const transform = this.getTransform()
 
@@ -149,8 +190,7 @@ export class VAxios {
 
     const opt: RequestOptions = Object.assign({}, requestOptions, options)
 
-    const { beforeRequestHook, requestCatch, transformRequestData } =
-      transform || {}
+    const { beforeRequestHook, requestCatchHook, transformRequestHook } = transform || {}
     if (beforeRequestHook && isFunction(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt)
     }
@@ -160,20 +200,16 @@ export class VAxios {
         .then((res: AxiosResponse<Result>) => {
           // 请求是否被取消
           const isCancel = axios.isCancel(res)
-          if (
-            transformRequestData &&
-            isFunction(transformRequestData) &&
-            !isCancel
-          ) {
-            const ret = transformRequestData(res, opt)
+          if (transformRequestHook && isFunction(transformRequestHook) && !isCancel) {
+            const ret = transformRequestHook(res, opt)
             // ret !== undefined ? resolve(ret) : reject(new Error('request error!'));
             return resolve(ret)
           }
           reject(res as unknown as Promise<T>)
         })
         .catch((e: Error) => {
-          if (requestCatch && isFunction(requestCatch)) {
-            reject(requestCatch(e))
+          if (requestCatchHook && isFunction(requestCatchHook)) {
+            reject(requestCatchHook(e))
             return
           }
           reject(e)

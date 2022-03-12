@@ -31,7 +31,7 @@ export const removeItem = (key: string) => {
 /**
  * 删除所有数据
  */
-export const removeAllItem = (key: string) => {
+export const removeAllItem = () => {
   window.localStorage.clear()
 }
 

@@ -1,5 +1,5 @@
 module.exports = {
-  // printWidth: 80,
+  printWidth: 100, // 默认80
   // tabWidth: 1,
   // useTabs: false,
   semi: false, // 未尾逗号, default:  true

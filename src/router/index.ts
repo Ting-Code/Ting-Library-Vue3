@@ -69,10 +69,7 @@ getRouteNames(publicRoutes)
 
 // 创建路由
 const router = createRouter({
-  history:
-    process.env.NODE_ENV === 'production'
-      ? createWebHistory()
-      : createWebHashHistory(),
+  history: process.env.NODE_ENV === 'production' ? createWebHistory() : createWebHashHistory(),
   routes: publicRoutes as unknown as RouteRecordRaw[],
   scrollBehavior() {
     return { top: 0 }
@@ -98,3 +95,5 @@ router.beforeEach(async (to, from, next) => {
 export function setupRouter(app: App<Element>) {
   app.use(router)
 }
+
+export default router
