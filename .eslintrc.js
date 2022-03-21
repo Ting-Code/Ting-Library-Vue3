@@ -11,7 +11,8 @@ module.exports = {
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:vue/vue3-recommended",// vue3
-        "prettier"
+        "prettier",
+        "vue-global-api"
     ],
     // "parser": "vue-eslint-parser",
     "parserOptions": {
@@ -47,5 +48,7 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         // ↓是否禁止使用特定类型
         '@typescript-eslint/ban-types': 'off',
+        // ↓正则表达式不必要的转义
+        'no-useless-escape': 'off',
     }
 }

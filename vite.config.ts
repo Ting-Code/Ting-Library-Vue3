@@ -3,7 +3,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vue from '@vitejs/plugin-vue'
 import path, { resolve } from 'path'
 
-// 按需引入 element-plus
+// 按需引入 element-plus vue自动导入
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -17,6 +17,9 @@ import eslintPlugin from 'vite-plugin-eslint'
 // svg 加载
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
+// vue setup 命名增强<script lang="ts" setup name="OrderList">
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+
 // 配置绝对路径
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -25,10 +28,17 @@ export default defineConfig(({ command }) => {
   return {
     base: './',
     plugins: [
-      vue(),
+      vue({
+        reactivityTransform: true // 开启ref转换
+      }),
+      VueSetupExtend(),
       vueJsx(),
       viteCompression(), //gzip压缩
-      AutoImport({ resolvers: [ElementPlusResolver()] }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+        imports: ['vue', 'vue-router', 'pinia'], // 自动导入vue和vue-router相关函数
+        dts: 'types/auto-import.d.ts' // 生成 `auto-import.d.ts` 全局声明
+      }),
       Components({ resolvers: [ElementPlusResolver()] }),
       viteMockServe({
         mockPath: 'mock',
@@ -51,7 +61,7 @@ export default defineConfig(({ command }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "${pathResolve('src')}/design/var.scss";`
+          additionalData: `@import "src/design/var.scss";`
         }
       }
     },

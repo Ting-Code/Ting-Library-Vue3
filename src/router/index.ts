@@ -28,7 +28,7 @@ export const publicRoutes = [
   {
     path: '/',
     redirect: '/index',
-    component: () => import('@/views/index/index.vue')
+    component: () => import('@/views/admin/index.vue')
   },
   {
     path: '/admin',

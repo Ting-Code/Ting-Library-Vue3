@@ -1,12 +1,7 @@
-import { defineStore } from 'pinia';
-import {
-  login as userLogin,
-  logout as userLogout,
-  getUserInfo,
-  LoginData,
-} from '@/api/user';
-import { setToken, clearToken } from '@/utils/auth';
-import { UserState } from './types';
+import { defineStore } from 'pinia'
+import { login as userLogin, logout as userLogout, getUserInfo, LoginData } from '@/api/user'
+import { setToken, clearToken } from '@/utils/storage'
+import { UserState } from './types'
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -25,56 +20,56 @@ const useUserStore = defineStore('user', {
     registrationDate: undefined,
     accountId: undefined,
     certification: undefined,
-    role: '',
+    role: ''
   }),
 
   getters: {
     userInfo(state: UserState): UserState {
-      return { ...state };
-    },
+      return { ...state }
+    }
   },
 
   actions: {
     switchRoles() {
-      return new Promise((resolve) => {
-        this.role = this.role === 'user' ? 'admin' : 'user';
-        resolve(this.role);
-      });
+      return new Promise(resolve => {
+        this.role = this.role === 'user' ? 'admin' : 'user'
+        resolve(this.role)
+      })
     },
     // Set user's information
     setInfo(partial: Partial<UserState>) {
-      this.$patch(partial);
+      this.$patch(partial)
     },
 
     // Reset user's information
     resetInfo() {
-      this.$reset();
+      this.$reset()
     },
 
     // Get user's information
     async info() {
-      const res = await getUserInfo();
-      this.setInfo(res.data);
+      const res = await getUserInfo()
+      this.setInfo(res.data)
     },
 
     // Login
     async login(loginForm: LoginData) {
       try {
-        const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        const res = await userLogin(loginForm)
+        setToken(res.data.token)
       } catch (err) {
-        clearToken();
-        throw err;
+        clearToken()
+        throw err
       }
     },
 
     // Logout
     async logout() {
-      await userLogout();
-      this.resetInfo();
-      clearToken();
-    },
-  },
-});
+      await userLogout()
+      this.resetInfo()
+      clearToken()
+    }
+  }
+})
 
-export default useUserStore;
+export default useUserStore
