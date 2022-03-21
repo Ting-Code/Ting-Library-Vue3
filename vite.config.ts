@@ -48,6 +48,13 @@ export default defineConfig(({ command }) => {
         include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'] // 检查的文件
       })
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "${pathResolve('src')}/design/var.scss";`
+        }
+      }
+    },
     resolve: {
       // 配置路径别名
       alias: [
