@@ -1,15 +1,18 @@
 <template>
-  <!-- <router-view /> -->
-  <div @click="handle">{{a}}</div>
+   <router-view />
+  <div>
+    6666666666666
+<!--    <text></text>-->
+    <t-icon name="list"></t-icon>
+  </div>
+
 </template>
 
 <script setup lang="ts">
-  const a = ref(0)
-  const handle = () => {
-    a.value ++
-  }
+
+
 </script>
 
 <style lang="scss">
-@import '@/design/index.scss'
+
 </style>
