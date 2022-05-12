@@ -2,6 +2,10 @@ import { store } from '@/store'
 import { defineStore } from 'pinia'
 import { PermissionState } from './type'
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 export const usePermissionStore = defineStore({
   id: 'app-permission',
   state: (): PermissionState => ({
@@ -15,7 +19,7 @@ export const usePermissionStore = defineStore({
   },
   actions: {
     // 添加路由
-    async buildRoutesAction(): Promise<any[]> {}
+    // async buildRoutesAction(): Promise<any[]> {}
   }
 })
 

@@ -5,14 +5,13 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Ak: typeof import('./src/components/ak/index.vue')['default']
     Application: typeof import('./src/components/Application/Application.vue')['default']
-    Idnex: typeof import('./src/components/Test/idnex.vue')['default']
+    Ka: typeof import('./src/components/ak/ka/index.vue')['default']
+    Kb: typeof import('./src/components/ak/ka/kb.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/basic/SvgIcon/index.vue')['default']
-    Test: typeof import('./src/components/ting.vue')['default']
-    Text: typeof import('./src/components/text.vue')['default']
-    Ting: typeof import('./src/components/ting.vue')['default']
   }
 }
 
