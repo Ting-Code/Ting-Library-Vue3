@@ -1,4 +1,4 @@
-import SvgIcon from '@/components/basic/SvgIcon/index.vue'
+import SvgIcon from '@/components/Common/SvgIcon/index.vue'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
