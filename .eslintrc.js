@@ -12,7 +12,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:vue/vue3-recommended",// vue3
         "prettier",
-        "vue-global-api"
+        "vue-global-api"  // auto-import 排除报错
     ],
     // "parser": "vue-eslint-parser",
     "parserOptions": {

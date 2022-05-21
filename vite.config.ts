@@ -70,14 +70,14 @@ export default defineConfig(({ command }) => {
       alias: [
         {
           find: /\/#\//,
-          replacement: pathResolve('types') + '/'
+          replacement: pathResolve('types') + '/types/'
         },
         {
           find: '@',
           replacement: pathResolve('src') + '/'
         },
         {
-          find: '@ds',
+          find: '@s',
           replacement: pathResolve('src') + '/design/'
         }
       ]

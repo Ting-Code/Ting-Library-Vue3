@@ -8,11 +8,14 @@ declare module '@vue/runtime-core' {
     Ak: typeof import('./src/components/ak/index.vue')['default']
     Application: typeof import('./src/components/Application/Application.vue')['default']
     DialogContent: typeof import('./src/components/Application/DialogContent/index.vue')['default']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    Icon: typeof import('./src/components/Common/Icon/Icon.vue')['default']
+    IconPicker: typeof import('./src/components/Common/Icon/IconPicker.vue')['default']
     Ka: typeof import('./src/components/ak/ka/index.vue')['default']
     Kb: typeof import('./src/components/ak/ka/kb.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SvgIcon: typeof import('./src/components/Common/SvgIcon/index.vue')['default']
+    SvgIcon: typeof import('./src/components/Common/Icon/SvgIcon.vue')['default']
   }
 }
 
