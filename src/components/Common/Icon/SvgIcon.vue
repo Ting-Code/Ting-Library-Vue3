@@ -1,15 +1,15 @@
 <template>
   <svg
-      :style="getStyle"
+      :style="svgStyle"
       :class="['svg-icon', $attrs.class, spin && 'svg-icon-spin']"
       aria-hidden="true">
-    <use :xlink:href="iconName" />
+    <use :xlink:href="iconName"/>
   </svg>
 </template>
 
 <script setup lang="ts">
-import type { CSSProperties } from 'vue';
-import {  PropType } from 'vue'
+import type {CSSProperties} from 'vue'
+import {PropType} from 'vue'
 
 const props = defineProps({
   name: {
@@ -27,26 +27,35 @@ const props = defineProps({
 })
 // 项目内图标
 const iconName = computed(() => `#icon-${props.name}`)
-const getStyle = computed((): CSSProperties => {
-  const { size } = props;
-  let s = `${size}`;
-  s = `${s.replace('px', '')}px`;
-  return {
-    width: s,
-    height: s,
-  };
+const svgStyle = computed((): CSSProperties => {
+  const {size} = props
+  let s = `${size}`
+  s = `${s.replace('px', '')}px`
+  return {fontSize: s}
 });
 </script>
 
 <style lang="scss" scoped>
 .svg-icon {
-  display: inline-block;
-  overflow: hidden;
+  width: 1em;
+  height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
+  overflow: hidden;
+
+  &-spin {
+    animation: loadingCircle 1s infinite linear;
+  }
 }
 
-.svg-icon-spin {
-  animation: loadingCircle 1s infinite linear;
+@-webkit-keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

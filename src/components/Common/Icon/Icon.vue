@@ -1,38 +1,31 @@
 <template>
+  <img
+      v-if="isExternal"
+      :src="icon"
+      :class="[$attrs.class, 'svg-external-icon', spin && 'svg-external-icon-spin']"
+      :style="styleExternalIcon"
+  />
   <SvgIcon
+      v-else
       :size="size"
-      :name="getSvgIcon"
-      v-if="isSvgIcon"
-      :class="[$attrs.class, 'anticon']"
+      :name="icon"
+      :class="[$attrs.class]"
       :spin="spin"
   />
-  <span
-      v-else
-      ref="elRef"
-      :class="[$attrs.class, 'app-iconify anticon', spin && 'app-iconify-spin']"
-      :style="getWrapStyle"
-  ></span>
-</template>
-<script lang="ts">
-import type { PropType } from 'vue';
-import { CSSProperties } from 'vue';
-import SvgIcon from './SvgIcon.vue';
-import { Icon as Iconify } from '@iconify/vue';
-import { isString } from '@/utils/validator/is';
-import { ElRef } from '/#/index.js';
 
-const SVG_END_WITH_FLAG = '|svg';
-export default defineComponent({
-  name: 'Icon',
-  components: { SvgIcon },
-  props: {
+</template>
+<script lang="ts" setup>
+import type { PropType } from 'vue'
+import { CSSProperties } from 'vue'
+import SvgIcon from './SvgIcon.vue'
+import { isExternal as exrernal, isString } from '@/utils/validator/is'
+import { ElRef } from '/#/index.js'
+import list from '@/icons/svg/list.svg'
+
+  const props = defineProps({
     icon: {
       type: String as PropType<string>,
       required: true
-    },
-    color: {
-      type: String as PropType<string>,
-      required: false
     },
     size: {
       type: [String, Number] as PropType<string | number>,
@@ -42,76 +35,46 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-  },
-  setup(props) {
+  })
 
-    const elRef = ref<ElRef>(null);
+    const elRef = ref<ElRef>(null)
 
-    const isSvgIcon = computed(() => props.icon?.endsWith(SVG_END_WITH_FLAG));
-    const getSvgIcon = computed(() => props.icon.replace(SVG_END_WITH_FLAG, ''));
+    // 判断是否为外部url图标
+    const isExternal = computed(() => exrernal(props.icon))
+    // 外部图标样式
+    const styleExternalIcon = computed((): CSSProperties => {
+      const {size} = props
+      let s = `${size}`
+      s = `${s.replace('px', '')}px`
+      return {fontSize: s}
+    })
 
-    const update = async () => {
-      if (unref(isSvgIcon)) return;
 
-      const el = unref(elRef);
-      if (!el) return;
 
-      await nextTick();
-      const icon = unref(props.icon);
-      if (!icon) return;
-
-      const svg = Iconify.renderSVG(icon, {});
-      if (svg) {
-        el.textContent = '';
-        el.appendChild(svg);
-      } else {
-        const span = document.createElement('span');
-        span.className = 'iconify';
-        span.dataset.icon = icon;
-        el.textContent = '';
-        el.appendChild(span);
-      }
-    };
-
-    const getWrapStyle = computed((): CSSProperties => {
-      const { size, color } = props;
-      let fs = size;
-      if (isString(size)) {
-        fs = parseInt(size, 10);
-      }
-
-      return {
-        fontSize: `${fs}px`,
-        color: color,
-        display: 'inline-flex',
-      };
-    });
-
-    watch(() => props.icon, update, { flush: 'post' });
-
-    onMounted(update);
-
-    return { elRef, getWrapStyle, isSvgIcon, getSvgIcon };
-  },
-});
 </script>
-<style lang="less">
-.app-iconify {
+<style lang="scss" scoped>
+
+// url类型的图标样式
+.svg-external-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  background-color: currentColor;
   display: inline-block;
-  // vertical-align: middle;
 
   &-spin {
-    svg {
-      animation: loadingCircle 1s infinite linear;
-    }
+    animation: loadingCircle 1s infinite linear;
   }
 }
 
-span.iconify {
-  display: block;
-  min-width: 1em;
-  min-height: 1em;
-  background-color: @iconify-bg-color;
-  border-radius: 100%;
+@-webkit-keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
