@@ -19,6 +19,7 @@ Object.keys(modules).forEach(key => {
   routeModuleList.push(...modList)
 })
 
+
 //公开路由表(这里还可以抽离这个文件)
 export const publicRoutes = [
   {
@@ -53,7 +54,7 @@ export const publicRoutes = [
   }
 ]
 
-// 遍历路由数获取路由List
+// 遍历路由数获取路由List 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = []
 const getRouteNames = (array: any[]) =>
   array.forEach(item => {
