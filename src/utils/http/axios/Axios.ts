@@ -120,7 +120,7 @@ export class VAxios {
 
     if (params.data) {
       Object.keys(params.data).forEach(key => {
-        const value = params.data![key]
+        const value = params.data?.[key]
         if (Array.isArray(value)) {
           value.forEach(item => {
             formData.append(`${key}[]`, item)
@@ -128,7 +128,7 @@ export class VAxios {
           return
         }
 
-        formData.append(key, params.data![key])
+        formData.append(key, params.data?.[key])
       })
     }
 
