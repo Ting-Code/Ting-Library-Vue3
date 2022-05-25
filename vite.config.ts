@@ -61,7 +61,8 @@ export default defineConfig(({ command }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "src/design/var.scss";`
+          charset: false,
+          additionalData: `@import "./src/design/global.scss";`
         }
       }
     },
