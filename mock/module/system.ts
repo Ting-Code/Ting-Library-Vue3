@@ -40,7 +40,7 @@ export default [
     response: (request: requestParams) => {
       const token = getRequestToken(request);
       if (!token) {
-        return resultError('Invalid token!');
+        return resultError('没有token!');
       }
       const id = "1"
       let menu: Object[];

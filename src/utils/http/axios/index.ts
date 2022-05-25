@@ -106,7 +106,6 @@ const transform: AxiosTransform = {
         break;
     }
     throw new Error(errorMsg);
-
   },
 
   // 请求之前处理config

@@ -40,8 +40,8 @@ const usePermissionStore = defineStore({
     },
 
     // 请求获取路由 菜单 权限 等信息
-    async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
-      const backMenuList = await getMenuList()
+    async buildRoutesAction(params:any): Promise<AppRouteRecordRaw[]> {
+      const backMenuList = await getMenuList(params)
       console.log(backMenuList, 'backMenuList')
       return backMenuList;
     },
