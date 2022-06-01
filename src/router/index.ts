@@ -7,8 +7,8 @@ import {
 } from 'vue-router'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
-import admin from '@/views/admin/index.vue'
 import { App } from 'vue'
+import { publicRoutes } from "@/router/baseRouters.js";
 
 const modules = import.meta.globEager('./modules/**/*.ts')
 const routeModuleList: RouteRecordRaw[] = []
@@ -20,39 +20,6 @@ Object.keys(modules).forEach(key => {
 })
 
 
-//公开路由表(这里还可以抽离这个文件)
-export const publicRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index.vue')
-  },
-  {
-    path: '/',
-    alias: '/index',
-    component: () => import('@/views/admin/index.vue')
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/error-page/404.vue')
-  },
-  {
-    path: '/admin',
-    component: admin,
-    redirect: '/admin',
-    children: [
-      {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('@/views/admin/index.vue'),
-        meta: {
-          title: 'admin',
-          icon: 'el-icon-user'
-        }
-      },
-    ]
-  }
-]
 
 // 遍历路由数获取路由List 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = []

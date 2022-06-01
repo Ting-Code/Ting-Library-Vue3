@@ -1,20 +1,5 @@
-export interface ProjectSettingState {
-  //导航模式
-  navMode: string;
-  //导航风格
-  navTheme: string;
-  //顶部设置
-  headerSetting: object;
-  //页脚
-  showFooter: boolean;
-  //菜单设置
-  menuSetting: object;
-  //多标签
-  multiTabsSetting: object;
-  //面包屑
-  crumbsSetting: object;
-  //权限模式
-  permissionMode: string;
+export interface ProjectConfig {
+
 }
 
 export interface IbodySetting {

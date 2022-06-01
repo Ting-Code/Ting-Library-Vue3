@@ -2,6 +2,7 @@ body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, sectio
   padding: 0;
   margin: 0;
 }
+
 body{
   font-family: -apple-system, "微软雅黑", "Helvetica Neue", Helvetica,
   "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB",
@@ -11,6 +12,10 @@ body{
   font-size:16px;
   line-height:1.5;
   color: #333;
+}
+#app {
+  height: 100vh;
+  overflow: hidden;
 }
 *{box-sizing:border-box}
 *::before{box-sizing:border-box}

@@ -1,22 +1,22 @@
 import { defineStore } from 'pinia'
 import defaultSettings from '@/config/settings.js'
-
+import {ThemeEnum} from "@/enums/appEnum.js";
+import type {
+  ProjectConfig,
+} from '/#/config';
 export interface AppState {
-  theme: string
-  colorWeek: boolean
-  navbar: boolean
-  menu: boolean
-  menuCollapse: boolean
-  footer: boolean
-  themeColor: string
-  menuWidth: number
-  globalSettings: boolean
-  [key: string]: unknown
+  darkMode?: ThemeEnum;
+  pageLoading: boolean;
+  projectConfig: ProjectConfig | null;
 }
 
 const useAppStore = defineStore({
   id: 'app',
-  state: (): AppState => ({ ...defaultSettings }),
+  state: (): AppState => ({
+    darkMode: undefined,
+    pageLoading: false,
+    projectConfig: Persistent.getLocal(PROJ_CFG_KEY),
+  }),
 
   getters: {
     appCurrentSetting(state: AppState): AppState {
