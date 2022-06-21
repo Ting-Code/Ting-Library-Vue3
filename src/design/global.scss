@@ -1,1 +1,2 @@
 // global 会被全局引用 可以写scss变量mixin 等
+@use "./theme/index.scss" as *;
