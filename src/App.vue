@@ -2,7 +2,7 @@
   <AppProvider>
     <router-view />
   </AppProvider>
-  <div class="divider">66666666</div>
+  <el-button type="primary">66666666</el-button>
 </template>
 
 <script setup lang="ts">
