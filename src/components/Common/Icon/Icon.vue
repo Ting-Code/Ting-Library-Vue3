@@ -1,18 +1,11 @@
 <template>
   <img
-      v-if="isExternal"
-      :src="icon"
-      :class="[$attrs.class, 'svg-external-icon', spin && 'svg-external-icon-spin']"
-      :style="styleExternalIcon"
+    v-if="isExternal"
+    :src="icon"
+    :class="[$attrs.class, 'svg-external-icon', spin && 'svg-external-icon-spin']"
+    :style="styleExternalIcon"
   />
-  <SvgIcon
-      v-else
-      :size="size"
-      :name="icon"
-      :class="[$attrs.class]"
-      :spin="spin"
-  />
-
+  <SvgIcon v-else :size="size" :name="icon" :class="[$attrs.class]" :spin="spin" />
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
@@ -20,40 +13,35 @@ import { CSSProperties } from 'vue'
 import SvgIcon from './SvgIcon.vue'
 import { isExternal as exrernal, isString } from '@/utils/validator/is'
 import { ElRef } from '/#/index.js'
-import list from '@/icons/svg/list.svg'
 
-  const props = defineProps({
-    icon: {
-      type: String as PropType<string>,
-      required: true
-    },
-    size: {
-      type: [String, Number] as PropType<string | number>,
-      default: 16,
-    },
-    spin: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-  })
+const props = defineProps({
+  icon: {
+    type: String as PropType<string>,
+    required: true
+  },
+  size: {
+    type: [String, Number] as PropType<string | number>,
+    default: 16
+  },
+  spin: {
+    type: Boolean as PropType<boolean>,
+    default: false
+  }
+})
 
-    const elRef = ref<ElRef>(null)
+const elRef = ref<ElRef>(null)
 
-    // 判断是否为外部url图标
-    const isExternal = computed(() => exrernal(props.icon))
-    // 外部图标样式
-    const styleExternalIcon = computed((): CSSProperties => {
-      const {size} = props
-      let s = `${size}`
-      s = `${s.replace('px', '')}px`
-      return {fontSize: s}
-    })
-
-
-
+// 判断是否为外部url图标
+const isExternal = computed(() => exrernal(props.icon))
+// 外部图标样式
+const styleExternalIcon = computed((): CSSProperties => {
+  const { size } = props
+  let s = `${size}`
+  s = `${s.replace('px', '')}px`
+  return { fontSize: s }
+})
 </script>
 <style lang="scss" scoped>
-
 // url类型的图标样式
 .svg-external-icon {
   width: 1em;

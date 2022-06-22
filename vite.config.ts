@@ -35,17 +35,13 @@ export default defineConfig(({ command }) => {
       vueJsx(),
       viteCompression(), //gzip压缩
       AutoImport({
-        resolvers: [ElementPlusResolver({
-          // 自动引入修改主题色添加这一行，使用预处理样式，不添加将会导致使用ElMessage，ElNotification等组件时默认的主题色会覆盖自定义的主题色
-          importStyle: "sass",
-        })],
+        resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
         imports: ['vue', 'vue-router', 'pinia'], // 自动导入vue和vue-router相关函数
         dts: 'types/auto-import.d.ts' // 生成 `auto-import.d.ts` 全局声明
       }),
-      Components({ resolvers: [ElementPlusResolver({
-          // 自动引入修改主题色添加这一行，使用预处理样式
-          importStyle: "sass",
-        })] }),
+      Components({
+        resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
+      }),
       viteMockServe({
         mockPath: 'mock',
         localEnabled: command === 'serve', // 线下用mock

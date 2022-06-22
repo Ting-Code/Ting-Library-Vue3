@@ -8,7 +8,7 @@ import {
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
 import { App } from 'vue'
-import { publicRoutes } from "@/router/baseRouters.js";
+import { publicRoutes } from '@/router/baseRouters.js'
 
 const modules = import.meta.globEager('./modules/**/*.ts')
 const routeModuleList: RouteRecordRaw[] = []
@@ -18,8 +18,6 @@ Object.keys(modules).forEach(key => {
   const modList = Array.isArray(mod) ? [...mod] : [mod]
   routeModuleList.push(...modList)
 })
-
-
 
 // 遍历路由数获取路由List 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = []

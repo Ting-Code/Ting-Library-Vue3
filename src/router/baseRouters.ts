@@ -3,7 +3,7 @@ export const publicRoutes = [
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     meta: {
-      title: '登录页面',
+      title: '登录页面'
     }
   },
   {
@@ -13,16 +13,16 @@ export const publicRoutes = [
   },
   {
     path: '/',
-    component:  import('@/layouts/default/index.vue'),
+    component: import('@/layouts/default/index.vue'),
     children: [
       {
         path: '/home',
         name: 'home',
         component: () => import('@/views/home/index.vue'),
         meta: {
-          title: '首页',
+          title: '首页'
         }
-      },
+      }
     ]
   }
 ]

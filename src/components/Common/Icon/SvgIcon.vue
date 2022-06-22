@@ -1,15 +1,16 @@
 <template>
   <svg
-      :style="svgStyle"
-      :class="['svg-icon', $attrs.class, spin && 'svg-icon-spin']"
-      aria-hidden="true">
-    <use :xlink:href="iconName"/>
+    :style="svgStyle"
+    :class="['svg-icon', $attrs.class, spin && 'svg-icon-spin']"
+    aria-hidden="true"
+  >
+    <use :xlink:href="iconName" />
   </svg>
 </template>
 
 <script setup lang="ts">
-import type {CSSProperties} from 'vue'
-import {PropType} from 'vue'
+import type { CSSProperties } from 'vue'
+import { PropType } from 'vue'
 
 const props = defineProps({
   name: {
@@ -18,21 +19,21 @@ const props = defineProps({
   },
   spin: {
     type: Boolean,
-    default: false,
+    default: false
   },
   size: {
     type: [Number, String],
-    default: 16,
-  },
+    default: 16
+  }
 })
 // 项目内图标
 const iconName = computed(() => `#icon-${props.name}`)
 const svgStyle = computed((): CSSProperties => {
-  const {size} = props
+  const { size } = props
   let s = `${size}`
   s = `${s.replace('px', '')}px`
-  return {fontSize: s}
-});
+  return { fontSize: s }
+})
 </script>
 
 <style lang="scss" scoped>
