@@ -15,11 +15,12 @@ module.exports = {
     'plugin:prettier/recommended',
     'vue-global-api' // auto-import 排除报错
   ],
-  // "parser": "vue-eslint-parser",
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 'es6',
+    ecmaVersion: 2020,
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
+    jsxPragma: 'React',
     ecmaFeatures: {
       jsx: true,
       tsx: true
@@ -44,6 +45,28 @@ module.exports = {
     // ↓是否禁止使用特定类型
     '@typescript-eslint/ban-types': 'off',
     // ↓正则表达式不必要的转义
-    'no-useless-escape': 'off'
+    'no-useless-escape': 'off',
+
+    'vue/attributes-order': 'off',
+    'vue/one-component-per-file': 'off',
+    'vue/html-closing-bracket-newline': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/attribute-hyphenation': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/require-explicit-emits': 'off',
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'always',
+          normal: 'never',
+          component: 'always'
+        },
+        svg: 'always',
+        math: 'always'
+      }
+    ]
   }
 }
