@@ -11,7 +11,7 @@
   </RouterView>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, computed, unref } from 'vue'
 import { useAsyncRouteStore } from '@/store/modules/asyncRoute'
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
