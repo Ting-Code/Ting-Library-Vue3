@@ -66,8 +66,6 @@ html, body
         color: transparent
         text-shadow: 1px 1px 2px transparentize(#fff, .5)
         -webkit-background-clip: text
-        -moz-background-clip: text
-        background-clip: text
 
 #particles-js
   position: fixed
