@@ -5,6 +5,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
+    "strictFunctionTypes": false,
+    "noImplicitAny": false,
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
