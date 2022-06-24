@@ -1,14 +1,7 @@
-import {
-  createRouter,
-  createWebHistory,
-  createWebHashHistory,
-  RouteRecordRaw,
-  LocationQueryRaw
-} from 'vue-router'
-import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouterGuards } from './routerGuards.js'
 import { App } from 'vue'
-import { publicRoutes } from '@/router/baseRouters.js'
+import { publicRoutes } from '@/router/routerBase.js'
 
 const modules = import.meta.globEager('./modules/**/*.ts')
 const routeModuleList: RouteRecordRaw[] = []
@@ -28,12 +21,19 @@ const getRouteNames = (array: any[]) =>
   })
 getRouteNames(publicRoutes)
 
+//需要验证权限
+export const asyncRoutes = [...routeModuleList]
+
+//普通路由 无需验证权限
+export const constantRouter: any[] = [...publicRoutes]
+
 // 创建路由
 const router = createRouter({
-  history: process.env.NODE_ENV === 'production' ? createWebHistory() : createWebHashHistory(),
+  // history: process.env.NODE_ENV === 'production' ? createWebHistory() : createWebHashHistory(),
+  history: createWebHashHistory(''),
   routes: publicRoutes as unknown as RouteRecordRaw[],
   scrollBehavior() {
-    return { top: 0 }
+    return { left: 0, top: 0 }
   }
 })
 
@@ -46,15 +46,11 @@ export function resetRouter() {
     }
   })
 }
-// 加载网页进度条(可以去掉)
-router.beforeEach(async (to, from, next) => {
-  NProgress.start()
-  next()
-  NProgress.done()
-})
 
 export function setupRouter(app: App<Element>) {
   app.use(router)
+  // 创建路由守卫
+  createRouterGuards(router)
 }
 
 export default router

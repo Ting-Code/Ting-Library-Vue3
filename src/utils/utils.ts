@@ -8,7 +8,7 @@
  *  setObjToUrlParams('www.baidu.com', obj)
  *  ==>www.baidu.com?a=3&b=4
  */
-import {isObject} from "@/utils/validator/is.js";
+import { isObject } from '@/utils/validator/is.js'
 
 export function setObjToUrlParams(baseUrl: string, obj: any): string {
   let parameters = ''
@@ -20,9 +20,9 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
 }
 
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
-  let key: string;
+  let key: string
   for (key in target) {
-    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
+    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key])
   }
-  return src;
+  return src
 }

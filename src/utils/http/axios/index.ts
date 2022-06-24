@@ -1,24 +1,24 @@
 // axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
-import {VAxios} from './Axios'
-import {CreateAxiosOptions, RequestOptions, Result} from './types'
-import {AxiosTransform} from './axiosTransform'
-import axios, {AxiosResponse} from 'axios'
-import {checkStatus} from './checkStatus'
-import {joinTimestamp, formatRequestDate} from './helper'
-import {isExternal, isString} from '@/utils/validator/is'
-import {RequestEnum, ResultEnum, ContentTypeEnum} from '@/enums/httpEnum'
-import {PageEnum} from '@/enums/pageEnum'
-import {useGlobSetting} from '@/hooks/setting'
-import {deepMerge, setObjToUrlParams} from '@/utils/utils'
+import { VAxios } from './Axios'
+import { CreateAxiosOptions, RequestOptions, Result } from './types'
+import { AxiosTransform } from './axiosTransform'
+import axios, { AxiosResponse } from 'axios'
+import { checkStatus } from './checkStatus'
+import { joinTimestamp, formatRequestDate } from './helper'
+import { isExternal, isString } from '@/utils/validator/is'
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum'
+import { PageEnum } from '@/enums/pageEnum'
+import { useGlobSetting } from '@/hooks/setting'
+import { deepMerge, setObjToUrlParams } from '@/utils/utils'
 
 const globSetting = useGlobSetting()
 const urlPrefix: string = globSetting.urlPrefix || ''
 
-import router from '@/router';
-import {storage} from '@/utils/Storage';
+import router from '@/router'
+import { storage } from '@/utils/Storage'
 
-import {ElMessage, ElMessageBox} from "element-plus"
-import {useUserStoreWidthOut} from "@/store/modules/user.js";
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useUserStoreWidthOut } from '@/store/modules/user.js'
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -51,14 +51,14 @@ const transform: AxiosTransform = {
 
     const reject = Promise.reject
 
-    const {data} = res
+    const { data } = res
 
     if (!data) {
       // return '[HTTP] Request has no return value';
-      throw new Error('请求出错，请稍候重试');
+      throw new Error('请求出错，请稍候重试')
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const {code, result, message} = data
+    const { code, result, message } = data
     // 请求成功
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS // 200
     // 是否显示提示信息
@@ -73,7 +73,7 @@ const transform: AxiosTransform = {
         // errorMessageMode=‘custom-modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
         ElMessageBox({
           title: '提示',
-          message: message,
+          message: message
         })
       }
     }
@@ -83,45 +83,43 @@ const transform: AxiosTransform = {
       return result
     }
     // 接口请求错误，统一提示错误信息 这里逻辑可以根据项目进行修改
-    let errorMsg = message;
+    let errorMsg = message
     switch (code) {
       // 请求失败
       case ResultEnum.ERROR:
-        ElMessage.error(errorMsg);
-        break;
+        ElMessage.error(errorMsg)
+        break
       // 登录超时
       case ResultEnum.TIMEOUT:
-        if (router.currentRoute.value?.name === PageEnum.BASE_LOGIN_NAME) return;
+        if (router.currentRoute.value?.name === PageEnum.BASE_LOGIN_NAME) return
         // 到登录页
-        errorMsg = '登录超时，请重新登录!';
-        ElMessageBox.confirm(
-          '登录身份已失效，请重新登录!',
-          '提示', {
-            confirmButtonText: '确定',
-            type: 'warning',
-          }).then(() => {
-          storage.clear();
-          window.location.href = PageEnum.BASE_LOGIN;
+        errorMsg = '登录超时，请重新登录!'
+        ElMessageBox.confirm('登录身份已失效，请重新登录!', '提示', {
+          confirmButtonText: '确定',
+          type: 'warning'
+        }).then(() => {
+          storage.clear()
+          window.location.href = PageEnum.BASE_LOGIN
         })
-        break;
+        break
     }
-    throw new Error(errorMsg);
+    throw new Error(errorMsg)
   },
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const {apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix} = options
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options
 
-    const isUrlStr = isExternal(config.url as string);
+    const isUrlStr = isExternal(config.url as string)
 
     // 拼接URL前缀
     if (!isUrlStr && joinPrefix) {
-      config.url = `${urlPrefix}${config.url}`;
+      config.url = `${urlPrefix}${config.url}`
     }
 
     // 拼接请求域名端口
     if (!isUrlStr && apiUrl && isString(apiUrl)) {
-      config.url = `${apiUrl}${config.url}`;
+      config.url = `${apiUrl}${config.url}`
     }
     const params = config.params || {}
     const data = config.data || false
@@ -164,15 +162,15 @@ const transform: AxiosTransform = {
    */
   requestInterceptors: (config, options) => {
     // 请求之前处理config
-    const userStore = useUserStoreWidthOut();
-    const token = userStore.getToken;
+    const userStore = useUserStoreWidthOut()
+    const token = userStore.getToken
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
-      (config as Recordable).headers.Authorization = options.authenticationScheme
+      ;(config as Recordable).headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
-        : token;
+        : token
     }
-    return config;
+    return config
   },
 
   /**
@@ -180,7 +178,7 @@ const transform: AxiosTransform = {
    */
   responseInterceptorsCatch: (error: any) => {
     // @ts-ignore
-    const {response, code, message} = error || {}
+    const { response, code, message } = error || {}
     // TODO 此处要根据后端接口返回格式修改
     const msg: string =
       response && response.data && response.data.message ? response.data.message : ''
@@ -188,11 +186,11 @@ const transform: AxiosTransform = {
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         ElMessage.error('接口请求超时,请刷新页面重试!')
-        return Promise.reject(error);
+        return Promise.reject(error)
       }
       if (err && err.includes('Network Error')) {
         ElMessage.error('请检查您的网络连接是否正常!')
-        return Promise.reject(error);
+        return Promise.reject(error)
       }
     } catch (error) {
       throw new Error(error as string | undefined)
@@ -204,7 +202,7 @@ const transform: AxiosTransform = {
     } else {
       console.warn(error, '请求被取消！')
     }
-    return Promise.reject(response?.data);
+    return Promise.reject(response?.data)
   }
 }
 
@@ -240,13 +238,13 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 忽略重复请求
           ignoreCancelToken: true,
           // 是否携带token
-          withToken: true,
+          withToken: true
         },
-        withCredentials: false,
+        withCredentials: false
       },
       opt || {}
     )
-  );
+  )
 }
 
-export const http = createAxios();
+export const http = createAxios()
