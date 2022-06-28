@@ -1,0 +1,10 @@
+@use './base.scss' as *;
+@use './fade.scss' as *;
+@use './scale.scss' as *;
+@use './slide.scss' as *;
+@use './scroll.scss' as *;
+@use './zoom.scss' as *;
+
+.collapse-transition {
+  transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out, 0.2s padding-bottom ease-in-out;
+}
