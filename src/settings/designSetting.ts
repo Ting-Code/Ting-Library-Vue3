@@ -1,4 +1,5 @@
-// app theme preset color
+export const prefixCls = 'ting'
+
 export const appThemeList: string[] = [
   '#2d8cf0',
   '#0960bd',

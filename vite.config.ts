@@ -19,7 +19,8 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // vue setup 命名增强<script lang="ts" setup name="OrderList">
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
-
+// 导入图片路径
+import ViteImages from 'vite-plugin-vue-images'
 // 配置绝对路径
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -36,8 +37,8 @@ export default defineConfig(({ command }) => {
       viteCompression(), //gzip压缩
       AutoImport({
         resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
-        imports: ['vue', 'vue-router', 'pinia'], // 自动导入vue和vue-router相关函数
-        dts: 'types/auto-import.d.ts' // 生成 `auto-import.d.ts` 全局声明
+        imports: ['vue', 'vue-router', 'pinia'] // 自动导入vue和vue-router相关函数
+        // dts: 'types/auto-import.d.ts' // 生成 `auto-import.d.ts` 全局声明
       }),
       Components({
         resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
@@ -58,6 +59,9 @@ export default defineConfig(({ command }) => {
       // 设置eslint
       eslintPlugin({
         include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'] // 检查的文件
+      }),
+      ViteImages({
+        dirs: ['src/assets/images'] // 指明图片存放目录
       })
     ],
     css: {
@@ -86,7 +90,7 @@ export default defineConfig(({ command }) => {
       ]
     },
     build: {
-      minify: 'terser', // 要配置terser压缩才有这个功能 默认es buildld
+      // minify: 'terser', // 要配置terser压缩才有这个功能 默认es buildld
       // terserOptions: {
       //   compress: {
       //     // 生产环境移除console.log
