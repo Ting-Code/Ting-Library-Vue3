@@ -1,3 +1,5 @@
+@use 'base' as *;
+
 .slide-y-transition {
   @include transition-default;
 

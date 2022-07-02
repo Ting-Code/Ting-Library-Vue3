@@ -1,9 +1,9 @@
 // global 会被全局引用 可以写scss变量mixin 等
-@use './theme/index' as *;
-@use './settings/index' as *;
-
-$namespace: ting;
-
+@use 'theme/index' as *;
+@use 'transition/index' as *;
+@use 'mixin/config' as *;
+@use 'mixin/mixin' as *;
+@use 'mixin/function' as *;
 // 改变 element 的命名空间
 @forward 'element-plus/theme-chalk/src/mixins/config.scss' with (
   $namespace: $namespace
