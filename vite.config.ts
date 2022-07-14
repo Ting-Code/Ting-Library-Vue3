@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vue from '@vitejs/plugin-vue'
 import path, { resolve } from 'path'
@@ -25,7 +25,11 @@ import ViteImages from 'vite-plugin-vue-images'
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
 }
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
+  // 获取.env文件里定义的环境变量
+  const env = loadEnv(mode, process.cwd())
+  console.log(env)
+
   return {
     base: './',
     plugins: [
@@ -98,6 +102,8 @@ export default defineConfig(({ command }) => {
       //     drop_debugger: true,
       //   },
       // },
+      // 配置输出文件夹（默认dist）
+      outDir: pathResolve(env.VITE_BUILD_PATH),
       rollupOptions: {
         output: {
           chunkFileNames: 'js/[name]-[hash].js',

@@ -1,11 +1,42 @@
-# Vue 3 + Typescript + Vite
+# Vue 3 + Typescript + Vite + Pinia + Unocss
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目启动文档
 
-## Recommended IDE Setup
+### 初始化依赖
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+```
+yarn install
+```
 
-## Type Support For `.vue` Imports in TS
+### 构建开发版本
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+```
+yarn dev
+```
+
+### 构建不同开发版本，可以引入不同 env 配置
+
+```
+yarn test
+yarn bata
+```
+
+### 构建生产版本，编写了 sh 脚本可以同时打包线上（Bata-c）与内测版本（Alpha-c）
+
+```
+yarn b
+```
+
+### 构建不同生产版本，可以引入不同 env 配置
+
+```
+yarn build
+yarn build:test
+yarn build:bata
+```
+
+### Lints 检测代码规范与修复
+
+```
+yarn lint:lint-staged
+```
