@@ -21,6 +21,8 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 // 导入图片路径
 import ViteImages from 'vite-plugin-vue-images'
+import Unocss from 'unocss/vite'
+import unocssConfig from './unocss.config'
 // 配置绝对路径
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -66,7 +68,8 @@ export default defineConfig(({ command, mode }) => {
       }),
       ViteImages({
         dirs: ['src/assets/images'] // 指明图片存放目录
-      })
+      }),
+      Unocss({ ...unocssConfig })
     ],
     css: {
       preprocessorOptions: {

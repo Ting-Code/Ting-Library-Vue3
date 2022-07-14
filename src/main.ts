@@ -4,6 +4,7 @@ import { setupRouter } from './router'
 import { setupStore } from './store'
 import 'virtual:svg-icons-register'
 import '@s/index.scss'
+import 'uno.css'
 async function bootstrap() {
   const app = createApp(App)
   setupStore(app)
