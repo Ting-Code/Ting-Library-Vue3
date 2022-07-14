@@ -3,10 +3,10 @@ import { createRouterGuards } from './routerGuards.js'
 import { App } from 'vue'
 import { publicRoutes } from '@/router/routerBase.js'
 
-const modules = import.meta.globEager('./modules/**/*.ts')
+const modules: any = import.meta.globEager('./modules/**/*.ts')
 const routeModuleList: RouteRecordRaw[] = []
 // 私有路由(需要权限才能放行)
-Object.keys(modules).forEach(key => {
+Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {}
   const modList = Array.isArray(mod) ? [...mod] : [mod]
   routeModuleList.push(...modList)
@@ -15,7 +15,7 @@ Object.keys(modules).forEach(key => {
 // 遍历路由数获取路由List 白名单应该包含基本静态路由
 const WHITE_NAME_LIST: string[] = []
 const getRouteNames = (array: any[]) =>
-  array.forEach(item => {
+  array.forEach((item) => {
     WHITE_NAME_LIST.push(item.name)
     getRouteNames(item.children || [])
   })
@@ -39,7 +39,7 @@ const router = createRouter({
 
 // 重置动态路由
 export function resetRouter() {
-  router.getRoutes().forEach(route => {
+  router.getRoutes().forEach((route) => {
     const { name } = route
     if (name && !WHITE_NAME_LIST.includes(name as string)) {
       router.hasRoute(name) && router.removeRoute(name)

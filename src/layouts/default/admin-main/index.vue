@@ -12,39 +12,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, unref } from 'vue'
-import { useAsyncRouteStore } from '@/store/modules/asyncRoute'
-import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
+  import { defineComponent, computed, unref } from 'vue'
+  import { useAsyncRouteStore } from '@/store/modules/asyncRoute'
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting'
 
-export default defineComponent({
-  name: 'MainView',
-  components: {},
-  props: {
-    notNeedKey: {
-      type: Boolean,
-      default: false
+  export default defineComponent({
+    name: 'MainView',
+    components: {},
+    props: {
+      notNeedKey: {
+        type: Boolean,
+        default: false
+      },
+      animate: {
+        type: Boolean,
+        default: true
+      }
     },
-    animate: {
-      type: Boolean,
-      default: true
-    }
-  },
-  setup() {
-    const { getIsPageAnimate, getPageAnimateType } = useProjectSetting()
-    const asyncRouteStore = useAsyncRouteStore()
-    // 需要缓存的路由组件
-    const keepAliveComponents = computed(() => asyncRouteStore.keepAliveComponents)
+    setup() {
+      const { getIsPageAnimate, getPageAnimateType } = useProjectSetting()
+      const asyncRouteStore = useAsyncRouteStore()
+      // 需要缓存的路由组件
+      const keepAliveComponents = computed(() => asyncRouteStore.keepAliveComponents)
 
-    const getTransitionName = computed(() => {
-      return unref(getIsPageAnimate) ? unref(getPageAnimateType) : ''
-    })
+      const getTransitionName = computed(() => {
+        return unref(getIsPageAnimate) ? unref(getPageAnimateType) : ''
+      })
 
-    return {
-      keepAliveComponents,
-      getTransitionName
+      return {
+        keepAliveComponents,
+        getTransitionName
+      }
     }
-  }
-})
+  })
 </script>
 
 <style lang="scss" scoped></style>

@@ -87,7 +87,7 @@ export const useUserStore = defineStore({
       const that = this
       return new Promise((resolve, reject) => {
         getUserInfo()
-          .then(res => {
+          .then((res) => {
             const result = res
             if (result.permissions && result.permissions.length) {
               const permissionsList = result.permissions
@@ -99,7 +99,7 @@ export const useUserStore = defineStore({
             that.setAvatar(result.avatar)
             resolve(res)
           })
-          .catch(error => {
+          .catch((error) => {
             reject(error)
           })
       })

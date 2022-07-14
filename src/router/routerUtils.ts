@@ -16,7 +16,7 @@ LayoutMap.set('IFRAME', Iframe)
  * @returns {*}
  */
 export const routerGenerator = (routerMap: any[], parent?: any): any[] => {
-  return routerMap.map(item => {
+  return routerMap.map((item) => {
     const currentRouter: any = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
       path: `${(parent && parent.path) || ''}/${item.path}`,
@@ -55,13 +55,13 @@ export const routerGenerator = (routerMap: any[], parent?: any): any[] => {
 export const generatorDynamicRouter = (): Promise<RouteRecordRaw[]> => {
   return new Promise((resolve, reject) => {
     adminMenus()
-      .then(result => {
+      .then((result) => {
         const routeList = routerGenerator(result)
         asyncImportRoute(routeList)
 
         resolve(routeList)
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err)
       })
   })
@@ -74,7 +74,7 @@ let viewsModules: Record<string, () => Promise<Recordable>>
 export const asyncImportRoute = (routes: AppRouteRecordRaw[] | undefined): void => {
   viewsModules = viewsModules || import.meta.glob('../views/**/*.{vue,tsx}')
   if (!routes) return
-  routes.forEach(item => {
+  routes.forEach((item) => {
     // 外部嵌套链接
     if (!item.component && item.meta?.frameSrc) {
       item.component = 'IFRAME'
@@ -103,7 +103,7 @@ export const dynamicImport = (
   component: string
 ) => {
   const keys = Object.keys(viewsModules)
-  const matchKeys = keys.filter(key => {
+  const matchKeys = keys.filter((key) => {
     let k = key.replace('../views', '')
     const lastIndex = k.lastIndexOf('.')
     k = k.substring(0, lastIndex)

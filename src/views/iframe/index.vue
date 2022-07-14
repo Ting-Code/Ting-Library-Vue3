@@ -4,56 +4,56 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, unref, onMounted, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+  import { ref, unref, onMounted, nextTick } from 'vue'
+  import { useRoute } from 'vue-router'
 
-const currentRoute = useRoute()
-const loading = ref(false)
-const frameRef = ref<HTMLFrameElement | null>(null)
-const frameSrc = ref<string>('')
+  const currentRoute = useRoute()
+  const loading = ref(false)
+  const frameRef = ref<HTMLFrameElement | null>(null)
+  const frameSrc = ref<string>('')
 
-if (unref(currentRoute.meta)?.frameSrc) {
-  frameSrc.value = unref(currentRoute.meta)?.frameSrc as string
-}
+  if (unref(currentRoute.meta)?.frameSrc) {
+    frameSrc.value = unref(currentRoute.meta)?.frameSrc as string
+  }
 
-function hideLoading() {
-  loading.value = false
-}
+  function hideLoading() {
+    loading.value = false
+  }
 
-function init() {
-  nextTick(() => {
-    const iframe = unref(frameRef)
-    if (!iframe) return
-    const _frame = iframe as any
-    if (_frame.attachEvent) {
-      _frame.attachEvent('onload', () => {
-        hideLoading()
-      })
-    } else {
-      iframe.onload = () => {
-        hideLoading()
+  function init() {
+    nextTick(() => {
+      const iframe = unref(frameRef)
+      if (!iframe) return
+      const _frame = iframe as any
+      if (_frame.attachEvent) {
+        _frame.attachEvent('onload', () => {
+          hideLoading()
+        })
+      } else {
+        iframe.onload = () => {
+          hideLoading()
+        }
       }
-    }
-  })
-}
+    })
+  }
 
-onMounted(() => {
-  loading.value = true
-  init()
-})
+  onMounted(() => {
+    loading.value = true
+    init()
+  })
 </script>
 
 <style lang="scss" scoped>
-.frame {
-  width: 100%;
-  height: 100vh;
-
-  &-iframe {
+  .frame {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border: 0;
-    box-sizing: border-box;
+    height: 100vh;
+
+    &-iframe {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: 0;
+      box-sizing: border-box;
+    }
   }
-}
 </style>

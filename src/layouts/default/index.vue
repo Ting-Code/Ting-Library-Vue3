@@ -13,7 +13,7 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import AdminMain from './admin-main/index.vue'
+  import AdminMain from './admin-main/index.vue'
 </script>
 
 <style scoped lang="scss"></style>

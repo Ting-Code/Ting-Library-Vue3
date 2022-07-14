@@ -39,7 +39,7 @@ function filter<T = any>(
   function listFilter(list: T[]) {
     return list
       .map((node: any) => ({ ...node }))
-      .filter(node => {
+      .filter((node) => {
         node[children] = node[children] && listFilter(node[children])
         return func(node) || (node[children] && node[children].length)
       })
@@ -93,7 +93,7 @@ export const useAsyncRouteStore = defineStore({
       const permissionsList = data.permissions || []
 
       // 筛选 permissions 有的路由
-      const routeFilter = route => {
+      const routeFilter = (route) => {
         const { meta } = route
         const { permissions } = meta || {}
         if (!permissions) return true
