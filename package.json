@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "commit": "git add . && git cz",
+    "push": "git push origin && git push origin2",
     "b": "sh deploy.sh",
     "dev": "vite --host",
     "test": "vite --mode test --host",
@@ -41,6 +43,8 @@
     "@typescript-eslint/parser": "^5.30.6",
     "@vitejs/plugin-vue": "^3.0.0",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
+    "commitlint-config-cz": "^0.13.3",
+    "commitlint-config-git-commit-emoji": "^1.0.0",
     "cz-customizable": "^6.9.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
