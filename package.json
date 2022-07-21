@@ -66,7 +66,7 @@
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-images": "^0.6.1",
-    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vite-plugin-vue-setup-extend-plus": "^0.1.0",
     "vue-eslint-parser": "^9.0.3",
     "vue-global-api": "^0.4.1",
     "vue-tsc": "^0.38.5"

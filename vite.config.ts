@@ -13,12 +13,11 @@ import { viteMockServe } from 'vite-plugin-mock'
 import viteCompression from 'vite-plugin-compression'
 // 自动ESLint检测热更新
 import eslintPlugin from 'vite-plugin-eslint'
-
 // svg 加载
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-
-// vue setup 命名增强<script lang="ts" setup name="OrderList">
-import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+// vue setup 命名增强<script lang="ts" setup name="App" inheritAttrs="false">
+// @ts-ignore
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 // 导入图片路径
 import ViteImages from 'vite-plugin-vue-images'
 import Unocss from 'unocss/vite'
@@ -38,7 +37,6 @@ export default defineConfig(({ command, mode }) => {
       vue({
         reactivityTransform: true // 开启ref转换
       }),
-      VueSetupExtend(),
       vueJsx(),
       viteCompression(), //gzip压缩
       AutoImport({
@@ -49,6 +47,7 @@ export default defineConfig(({ command, mode }) => {
       Components({
         resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
       }),
+      vueSetupExtend(),
       viteMockServe({
         mockPath: 'mock',
         localEnabled: command === 'serve', // 线下用mock
