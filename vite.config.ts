@@ -29,7 +29,7 @@ function pathResolve(dir: string) {
 export default defineConfig(({ command, mode }) => {
   // 获取.env文件里定义的环境变量
   const env = loadEnv(mode, process.cwd())
-  console.log(env)
+  console.log(env, command)
 
   return {
     base: './',
@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode }) => {
         localEnabled: command === 'serve', // 线下用mock
         prodEnabled: command !== 'serve', // 线上环境用mock
         injectCode: `
-          import { setupProdMockServer } from '../mock';
+          import { setupProdMockServer } from '../mock/index.ts';
           setupProdMockServer();
         `
       }),

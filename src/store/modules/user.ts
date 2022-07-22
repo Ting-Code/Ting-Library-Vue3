@@ -88,6 +88,7 @@ export const useUserStore = defineStore({
       return new Promise((resolve, reject) => {
         getUserInfo()
           .then((res) => {
+            console.log(res, '用户信息')
             const result = res
             if (result.permissions && result.permissions.length) {
               const permissionsList = result.permissions

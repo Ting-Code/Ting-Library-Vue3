@@ -1,11 +1,28 @@
 import type { AppRouteRecordRaw } from '@/router/type'
 export const RedirectName = 'Redirect'
-
+import { PageEnum } from '@/enums/pageEnum'
 export const ErrorPage = () => import('@/views/error/404.vue')
 export const Layout = () => import('@/layouts/default/index.vue')
 export const ParentLayout = () => import('@/layouts/parentLayout/index.vue')
 
-export const publicRoutes: AppRouteRecordRaw[] = []
+export const publicRoutes: AppRouteRecordRaw[] = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/',
+    name: 'Root',
+    redirect: PageEnum.BASE_HOME,
+    meta: {
+      title: 'Root'
+    }
+  }
+]
 
 // 404 on a page
 export const ErrorPageRoute: AppRouteRecordRaw = {
