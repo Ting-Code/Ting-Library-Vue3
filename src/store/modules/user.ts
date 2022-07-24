@@ -63,7 +63,7 @@ export const useUserStore = defineStore({
       this.info = info
     },
     // 登录
-    async login(userInfo: any) {
+    async login(userInfo?: any) {
       try {
         const response = await login(userInfo)
         const { result, code } = response

@@ -40,3 +40,12 @@ yarn build:bata
 ```
 yarn lint:lint-staged
 ```
+
+## TODO List
+
+### 工程类需求
+
+| 类型 | 内容                   | 完成情况 | 在哪个版本实现的                                   |
+| ---- | ---------------------- | -------- | -------------------------------------------------- |
+| 构建 | 自动化脚本构建多环境包 | ✅       | [v1](https://gitee.com/TINGCYGF/ting-library-vue3) |
+| 架构 | monorepo（pnpm 实现）  | ⬜️      |                                                    |
