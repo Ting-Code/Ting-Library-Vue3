@@ -16,7 +16,13 @@ module.exports = {
     { value: ':rewind: revert', name: '⏪ revert:   回退' },
     { value: ':tada: version', name: '🎉 version:   发布版本' }
   ],
-  scopes: [{ name: '基础配置' }, { name: '业务' }, { name: '封装' }],
+  scopes: [
+    { name: '业务' },
+    { name: '封装' },
+    { name: '架构' },
+    { name: '配置' },
+    { name: '文档' }
+  ],
   //消息步骤
   messages: {
     type: '请选择提交类型',
