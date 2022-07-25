@@ -1,4 +1,8 @@
-module.exports = {
+// @ts-check
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { defineConfig } = require('eslint-define-config')
+
+module.exports = defineConfig({
   root: true,
   env: {
     browser: true,
@@ -70,4 +74,4 @@ module.exports = {
       }
     ]
   }
-}
+})

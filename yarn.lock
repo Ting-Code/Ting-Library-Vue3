@@ -2465,6 +2465,11 @@ eslint-config-vue-global-api@0.4.1:
   resolved "https://registry.npmmirror.com/eslint-config-vue-global-api/-/eslint-config-vue-global-api-0.4.1.tgz"
   integrity sha512-mJTiKBGLe1FXmEifYzCQzUTBpFv8OtfYzP6PAOuVRf+3hkGLMeiDh4bVzZEaJfdExtc8mPw9vp35YSLhwTselQ==
 
+eslint-define-config@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmmirror.com/eslint-define-config/-/eslint-define-config-1.5.1.tgz#ba9b18f59b73c8ea9eb3b7423bf891022f3312de"
+  integrity sha512-6gxrmN7aKGffaO8dCtMMKyo3IxbWymMQ248p4lf8GbaFRcLsqOXHFdUhhM0Hcy1NudvnpwHcfbDf7Nh9pIm1TA==
+
 eslint-plugin-prettier@^4.2.1:
   version "4.2.1"
   resolved "https://registry.npmmirror.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.2.1.tgz#651cbb88b1dab98bfd42f017a12fa6b2d993f94b"
