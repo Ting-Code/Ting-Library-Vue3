@@ -66,7 +66,7 @@ export default defineConfig(({ command, mode }) => {
         include: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'] // 检查的文件
       }),
       ViteImages({
-        dirs: ['src/assets/images'] // 指明图片存放目录
+        dirs: ['src/assets/img'] // 指明图片存放目录（默认该路径）
       }),
       Unocss({ ...unocssConfig })
     ],
