@@ -5,6 +5,7 @@
       <el-header>Header</el-header>
       <el-main>
         <main>
+          <img :src="Logo" />
           <admin-main />
         </main>
       </el-main>
