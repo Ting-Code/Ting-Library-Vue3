@@ -2,9 +2,7 @@
   <el-container>
     <el-aside width="200px">Aside</el-aside>
     <el-container>
-      <el-header>
-        <img :src="Logo" alt="" />
-      </el-header>
+      <el-header>Header</el-header>
       <el-main>
         <main>
           <admin-main />
