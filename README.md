@@ -21,7 +21,7 @@ yarn test
 yarn bata
 ```
 
-### 构建生产版本，编写了 sh 脚本可以同时打包线上（Bata-c）与内测版本（Alpha-c）
+### 构建生产版本，编写了 sh 脚本可以同时打包线上（Bata）与内测版本（Alpha）
 
 ```
 yarn b
