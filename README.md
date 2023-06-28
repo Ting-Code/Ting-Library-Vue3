@@ -1,4 +1,5 @@
 # Vue 3 + Typescript + Vite + Pinia + Unocss
+# 项目已停止维护，改造为monorepo架构https://github.com/Ting-Code/Ting-Library-Monorepo
 
 ## 项目启动文档
 
